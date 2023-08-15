@@ -37,21 +37,17 @@ const main = async () => {
 
         const chat = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [
-                {
-                    "role": "system",
-                    "content": "유저와 대화를 하는 챗봇입니다."
-                },
-                {
-                    "role": "user",
-                    "content": content
-                },
-            ],
+            messages: messages,
             max_tokens: 2000,
             temperature: 1,
             n: 1,
         });
-        console.log(chat.data.choices[0].message.content);
+        const chatgpt_response = chat.data.choices[0].message.content;
+        console.log("chatgpt: ", chatgpt_response);
+        messages.push({
+            "role": "assistant",
+            "content": chatgpt_response
+        })
     }
 };
 
